@@ -8,6 +8,8 @@ class Level
         'o' => 'Empty',
         '@' => 'Empty',
         '.' => 'Target',
+        '*' => 'Target',
+        '+' => 'Target',
         '#' => 'Wall'
       }[string_representation]
       Level::Space.const_get(class_name).new x, y

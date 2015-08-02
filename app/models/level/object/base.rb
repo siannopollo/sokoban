@@ -1,11 +1,7 @@
 class Level
   class Object
     class Base
-      attr_reader :x, :y
-      
-      def initialize(x, y)
-        @x, @y = x, y
-      end
+      include Level::Coordinated
       
       def box?() false end
       def pawn?() false end

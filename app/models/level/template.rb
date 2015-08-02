@@ -1,5 +1,22 @@
 class Level
   class Template
+    class << self
+      def all
+        @all_templates ||= {}
+      end
+      
+      def add_template(template)
+        all[counter] = template
+        counter
+      ensure
+        @counter += 1
+      end
+      
+      def counter
+        @counter ||= 1
+      end
+    end
+    
     attr_reader :rows, :width, :height
     
     def initialize(_rows)
@@ -14,6 +31,16 @@ class Level
           all_rows << Level::Row.new(r, y)
         end
       end
+      
+      @number = self.class.add_template self
+    end
+    
+    def to_s
+      @rows.map(&:to_s).join "\n"
+    end
+    
+    def inspect
+      %{#<Level::Template number="#{@number}" \n#{to_s}\n>}
     end
   end
 end

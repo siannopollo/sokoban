@@ -5,7 +5,9 @@ class Level
     def self.create(string_representation, x, y)
       class_name = {
         'o' => 'Box',
-        '@' => 'Pawn'
+        '*' => 'Box',
+        '@' => 'Pawn',
+        '+' => 'Pawn'
       }[string_representation]
       return nil unless class_name
       

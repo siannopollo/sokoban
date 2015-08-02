@@ -22,11 +22,16 @@ class Level
     end
     
     def pawn
+      return nil unless @string_representation.include?('@')
       @objects.detect(&:pawn?)
     end
     
     def to_s
       @string_representation
+    end
+    
+    def inspect
+      %{#<Level::Row y="#{y}" visual="#{to_s}">}
     end
   end
 end

@@ -10,8 +10,12 @@ class Level
       
       lines.map! {|l| l.sub /^\s{#{minimum_leading_excess_whitespace}}/, ''}
       
-      template = Level::Template.new lines.reject(&:empty?)
-      Level.new template
+      Level::Template.new lines.reject(&:empty?)
+    end
+    
+    def parse_all
+      templates = File.read('app/models/level/levels.txt').chomp
+      templates.split("\n\n").each {|data| parse data}
     end
   end
 end
