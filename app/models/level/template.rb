@@ -11,17 +11,12 @@ class Level
       # Pad out each row to take up the entire width
       _rows.map! {|r| r.ljust width, ' '}
       
-      @rows = [].tap do |all_rows|
-        _rows.each_with_index do |r, y|
-          all_rows << Level::Row.new(r, y)
-        end
-      end
-      
+      @rows = _rows.each_with_index.map {|r, y| Level::Row.new r, y}
       @number = self.class.add_template self
     end
     
     def to_s
-      @rows.map(&:to_s).join "\n"
+      @to_s ||= @rows.map(&:to_s).join "\n"
     end
     
     def inspect

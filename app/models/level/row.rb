@@ -4,8 +4,9 @@ class Level
     
     def initialize(string_representation, y)
       @string_representation = string_representation
-      @characters = string_representation.split ''
       @y = y
+      
+      @characters = string_representation.split ''
       
       @spaces = @characters.each_with_index.map {|c,x| Level::Space.create c, x, y}
       @objects = @characters.each_with_index.map {|c,x| Level::Object.create c, x, y}.compact
@@ -13,7 +14,9 @@ class Level
     
     {wall: :walls, empty: :empties, target: :targets}.each do |type, plural|
       define_method plural do
-        @spaces.select(&"#{type}?".to_sym)
+        result = instance_variable_get "@#{plural}"
+        return result if result
+        instance_variable_set "@#{plural}", @spaces.select(&"#{type}?".to_sym)
       end
     end
     
@@ -23,7 +26,7 @@ class Level
     
     def pawn
       return nil unless @string_representation.include?('@')
-      @objects.detect(&:pawn?)
+      @pawn ||= @objects.detect(&:pawn?)
     end
     
     def to_s

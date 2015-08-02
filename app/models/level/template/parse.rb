@@ -9,6 +9,7 @@ class Level
           match ? match[0].size : 0
         end.sort.first
         
+        # Remove any excess leading whitespace that is not part of the grid
         lines.map! {|l| l.sub /^\s{#{minimum_leading_excess_whitespace}}/, ''}
         
         new lines.reject(&:empty?)
