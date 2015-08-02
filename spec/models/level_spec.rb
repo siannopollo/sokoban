@@ -13,10 +13,14 @@ describe Level do
        ###
     }
   }
-  let(:template) {Level::Parser.new.parse basic_template}
+  let(:template) {Level::Template.parse basic_template}
   let(:level) {Level.new template}
   
   describe 'template cache' do
+    before do
+      Level::Template.all.clear
+    end
+    
     it 'should have one template' do
       Level::Template.all.should be_empty
       
@@ -115,6 +119,30 @@ describe Level do
       pawn.coordinates.should == [4,3]
       box.coordinates.should == [3,3]
       result.should == :blocked
+    end
+  end
+  
+  describe 'solving' do
+    it 'should work' do
+      level.should_not be_solved
+      
+      level.move :down
+      level.should_not be_solved
+      
+      level.move :up
+      level.move :left
+      level.move :left
+      level.should_not be_solved
+      
+      level.move :right
+      level.move :up
+      level.move :up
+      level.should_not be_solved
+      
+      level.move :down
+      level.move :right
+      level.move :right
+      level.should be_solved
     end
   end
 end

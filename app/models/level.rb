@@ -1,5 +1,5 @@
 class Level
-  concerned_with :parser, :template, :coordinated, :row, :object, :space
+  concerned_with :template, :coordinated, :row, :object, :space
   
   attr_reader :rows, :template, :pawn
   attr_reader :boxes, :spaces
@@ -13,6 +13,7 @@ class Level
     @pawn = @rows.detect(&:pawn).pawn
     @spaces = @rows.map(&:spaces).flatten
     @boxes = @rows.map(&:boxes).flatten
+    @targets = @spaces.select(&:target?)
   end
   
   def move(direction, target = pawn)
@@ -28,5 +29,9 @@ class Level
     
     target.move direction
     :moved
+  end
+  
+  def solved?
+    @boxes.map(&:coordinates).sort == @targets.map(&:coordinates).sort
   end
 end

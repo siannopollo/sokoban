@@ -1,21 +1,6 @@
 class Level
   class Template
-    class << self
-      def all
-        @all_templates ||= {}
-      end
-      
-      def add_template(template)
-        all[counter] = template
-        counter
-      ensure
-        @counter += 1
-      end
-      
-      def counter
-        @counter ||= 1
-      end
-    end
+    concerned_with :parse, :cache
     
     attr_reader :rows, :width, :height
     
