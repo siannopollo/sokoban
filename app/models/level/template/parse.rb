@@ -19,6 +19,7 @@ class Level
         templates = File.read('app/models/level/levels.txt').chomp
         templates.split("\n\n").each {|data| parse data}
       end
+      alias_method :load_all, :parse_all
     end
   end
 end

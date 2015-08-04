@@ -3,8 +3,8 @@ module Delegations
     options = args.pop
     delegator = options[:to]
     args.each do |method|
-      define_method method do
-        send(delegator).send method
+      define_method method do |*arguments, &block|
+        send(delegator).send method, *arguments, &block
       end
     end
   end

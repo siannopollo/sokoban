@@ -19,14 +19,18 @@ describe Level do
   describe 'template cache' do
     before do
       Level::Template.all.clear
+      Level::Template.all.should be_empty
     end
     
     it 'should have one template' do
-      Level::Template.all.should be_empty
-      
       level
       Level::Template.all.size.should == 1
       Level::Template.all.values.first.should_not be_nil
+    end
+    
+    it 'should load all templates' do
+      Level::Template.load_all
+      Level::Template.all.size.should == 50
     end
   end
   
@@ -79,8 +83,10 @@ describe Level do
     end
     
     it 'should move the pawn up one space' do
-      level.move :up
+      result = level.move :up
       pawn.coordinates.should == [4,3]
+      result.should be_moved
+      result.objects.should == [pawn]
     end
     
     it 'should move the pawn down one space' do
@@ -90,7 +96,8 @@ describe Level do
       result = level.move :down
       pawn.coordinates.should == [4,5]
       box.coordinates.should == [4,6]
-      result.should == :moved
+      result.should be_moved
+      result.objects.should == [pawn, box]
     end
     
     it 'should move the pawn down one space' do
@@ -100,13 +107,15 @@ describe Level do
       result = level.move :left
       pawn.coordinates.should == [3,4]
       box.coordinates.should == [2,4]
-      result.should == :moved
+      result.should be_moved
+      result.objects.should == [pawn, box]
     end
     
     it 'should move the pawn down one space' do
       result = level.move :right
       pawn.coordinates.should == [4,4]
-      result.should == :blocked
+      result.should be_blocked
+      result.objects.should be_empty
     end
     
     it 'should prevent the pawn from moving a box into a wall' do
@@ -118,7 +127,29 @@ describe Level do
       result = level.move :left
       pawn.coordinates.should == [4,3]
       box.coordinates.should == [3,3]
-      result.should == :blocked
+      result.should be_blocked
+      result.objects.should be_empty
+    end
+    
+    it 'should prevent the pawn from pushing two boxes' do
+      pawn.move :up
+      pawn.coordinates.should == [4,3]
+      
+      box = level.boxes[2]
+      box.move :right
+      box.coordinates.should == [4,4]
+      
+      result = level.move :down
+      pawn.coordinates.should == [4,3]
+      box.coordinates.should == [4,4]
+      result.should be_blocked
+      result.objects.should be_empty
+    end
+    
+    it 'should not do anything for non-directional moves' do
+      level.move(:blah).should be_invalid
+      level.move(:enter).should be_invalid
+      level.move(:esc).should be_invalid
     end
   end
   
