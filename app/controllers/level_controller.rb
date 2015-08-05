@@ -1,16 +1,17 @@
 class LevelController
-  attr_reader :level, :width, :height, :app
+  concerned_with :toolbar
   
-  delegate :stack, :flow, :para, :keypress, :alert, :debug, to: :app
+  attr_reader :n, :level, :width, :height, :app
   
   def initialize(template)
     @template = template
+    @n = 20
   end
   
   def run!
     controller = self
     @level = Level.new @template
-    @width, @height = level.width*20, level.height*20
+    @width, @height = level.width*n, level.height*n + n
     
     Shoes.app title: title, width: width, height: height do |app|
       controller.run app
@@ -20,6 +21,8 @@ class LevelController
   def run(app)
     @app = app
     @elements = {}
+    @toolbar = LevelController::Toolbar.new self
+    
     run_level
   end
   
@@ -34,13 +37,16 @@ class LevelController
     end
     
     def run_level
+      @toolbar.render
+      
       render
       keypress do |direction|
         result = level.move direction
-        if result.moved?
+        if result.success?
           result.objects.each do |object|
             element = @elements[object]
-            element.style top: object.y*20, left: object.x*20
+            element.style top: object.y*n, left: object.x*n
+            @toolbar.update_moves
           end
         end
       end
@@ -63,12 +69,16 @@ class LevelController
     
     # Render either a space or an object
     def render_object(object)
-      flow top: object.y*20, left: object.x*20, width: 20, height: 20 do
+      flow top: object.y*n+1, left: object.x*n, width: n, height: n do
         para character_for_object(object)
       end
     end
     
     def title
       "Sokoban - Level #{level.number}"
+    end
+    
+    def method_missing(method, *args, &block)
+      app.send method, *args, &block
     end
 end

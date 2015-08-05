@@ -20,7 +20,7 @@ class Level
         @additional_result = additional_result
       end
       
-      %w(blocked moved invalid).each do |t|
+      %w(blocked success invalid).each do |t|
         define_method "#{t}?" do
           @type == t.to_sym
         end

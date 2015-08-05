@@ -1,8 +1,7 @@
 class Level
   concerned_with :template, :coordinated, :row, :object, :space, :movement
   
-  attr_reader :rows, :template, :pawn
-  attr_reader :boxes, :spaces
+  attr_reader :rows, :template, :pawn, :boxes, :spaces, :moves
   
   delegate :height, :width, :number, to: :template
   
@@ -14,6 +13,8 @@ class Level
     @spaces = @rows.map(&:spaces).flatten
     @boxes = @rows.map(&:boxes).flatten
     @targets = @spaces.select(&:target?)
+    
+    @moves = 0
   end
   
   def solved?

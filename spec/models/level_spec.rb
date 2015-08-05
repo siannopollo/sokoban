@@ -85,7 +85,7 @@ describe Level do
     it 'should move the pawn up one space' do
       result = level.move :up
       pawn.coordinates.should == [4,3]
-      result.should be_moved
+      result.should be_success
       result.objects.should == [pawn]
     end
     
@@ -96,7 +96,7 @@ describe Level do
       result = level.move :down
       pawn.coordinates.should == [4,5]
       box.coordinates.should == [4,6]
-      result.should be_moved
+      result.should be_success
       result.objects.should == [pawn, box]
     end
     
@@ -107,7 +107,7 @@ describe Level do
       result = level.move :left
       pawn.coordinates.should == [3,4]
       box.coordinates.should == [2,4]
-      result.should be_moved
+      result.should be_success
       result.objects.should == [pawn, box]
     end
     
@@ -150,6 +150,22 @@ describe Level do
       level.move(:blah).should be_invalid
       level.move(:enter).should be_invalid
       level.move(:esc).should be_invalid
+    end
+    
+    it 'should increment the move count' do
+      level.moves.should == 0
+      
+      level.move :up
+      level.moves.should == 1
+      
+      level.move :right
+      level.moves.should == 2
+      
+      level.move :up
+      level.moves.should == 2
+      
+      level.move :left
+      level.moves.should == 3
     end
   end
   

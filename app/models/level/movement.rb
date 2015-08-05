@@ -16,7 +16,9 @@ class Level
     end
     
     target.move direction
-    result! :moved, target, secondary_result
+    result!(:success, target, secondary_result).tap do |r|
+      @moves += 1 if target.pawn? && r.success?
+    end
   end
   
   protected
