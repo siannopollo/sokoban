@@ -1,7 +1,7 @@
 class LevelController
   include Observable
   
-  concerned_with :component, :board, :toolbar
+  concerned_with :component, :board, :toolbar, :background
   
   attr_reader :n, :level, :width, :height, :app
   
@@ -24,6 +24,7 @@ class LevelController
     @app = app
     @toolbar = LevelController::Toolbar.new self
     @board = LevelController::Board.new self
+    @background = LevelController::Background.new self
     
     render
   end
@@ -40,12 +41,9 @@ class LevelController
     def render
       @toolbar.render
       @board.render
+      @background.render
       
-      background_path = image_path 'background.png'
-      dimensions = imagesize background_path
-      offset = height - dimensions.last
-      background background_path, width: dimensions.first, height: dimensions.last, top: offset
-      on('level_solved') {alert 'Good job!'}
+      on('level:solved') {app.alert 'Good job!'}
     end
     
     def title

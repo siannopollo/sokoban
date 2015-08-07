@@ -15,7 +15,12 @@ class LevelController
         name = nil
         name = 'wall.png' if object.wall?
         name = 'target.png' if object.target?
-        name = 'box.png' if object.box?
+        
+        if object.box?
+          name = 'box.png'
+          name = 'box-on-target.png' if level.box_on_target?(object)
+        end
+        
         if object.pawn?
           direction ||= :right
           name = "mario-#{direction}.png"
@@ -27,18 +32,19 @@ class LevelController
         keypress do |direction|
           result = level.move direction
           if result.success?
+            trigger 'move:successful'
+            
             result.objects.each do |object|
-              element = @elements[object]
-              element.style top: (object.y+1)*n, left: object.x*n
-              
               if object.pawn? && [:left, :right].include?(direction)
-                element.remove
-                render_object object, direction
+                rerender_object object, direction
+              elsif object.box? && level.box_on_target?(object)
+                rerender_object object, direction
+                trigger 'level:solved' if level.solved?
+              else
+                element = @elements[object]
+                element.style top: (object.y+1)*n, left: object.x*n
               end
             end
-            
-            trigger 'successful_move'
-            trigger 'level_solved' if level.solved?
           end
         end
       end
@@ -51,6 +57,12 @@ class LevelController
         end.tap do |element|
           @elements[object] = element
         end
+      end
+      
+      def rerender_object(object, direction)
+        element = @elements[object]
+        element.remove
+        render_object object, direction
       end
       
       def reset

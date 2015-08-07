@@ -16,15 +16,15 @@ class LevelController
         end
         
         flow width: 0.25, height: 0.5 do
-          @moves = para '00000', text_options.merge(left: n)
+          @moves = para '00000', text_options.merge(left: n, top: -3)
         end
         flow width: 0.25, height: 0.5 # blank for where coins would be
         flow width: 0.25, height: 0.5 do
           world, number = level.number.divmod 10
-          para [world+1, number].join('-'), text_options.merge(align: 'center')
+          para [world+1, number].join('-'), text_options.merge(align: 'center', top: -3)
         end
         flow width: 0.20, height: 0.5 do
-          @timer = para '0', text_options.merge(right: n, align: 'right')
+          @timer = para '0', text_options.merge(right: n, align: 'right', top: -3)
         end
       end
     end
@@ -36,7 +36,8 @@ class LevelController
     
     protected
       def reset
-        on('successful_move') {update_moves}
+        on('move:successful') {update_moves}
+        on('level:solved') {update_moves}
       end
       
       def start_timer
