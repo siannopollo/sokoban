@@ -167,6 +167,15 @@ describe Level do
       level.move :left
       level.moves.should == 3
     end
+    
+    it 'should know if a box is on a target' do
+      box = level.boxes.last
+      
+      level.box_on_target?(box).should == false
+      
+      level.move :down
+      level.box_on_target?(box).should == true
+    end
   end
   
   describe 'solving' do

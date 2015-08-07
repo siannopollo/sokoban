@@ -1,7 +1,7 @@
 class Level
   concerned_with :template, :coordinated, :row, :object, :space, :movement
   
-  attr_reader :rows, :template, :pawn, :boxes, :spaces, :moves
+  attr_reader :rows, :template, :pawn, :boxes, :spaces, :targets, :moves
   
   delegate :height, :width, :number, to: :template
   
@@ -15,6 +15,12 @@ class Level
     @targets = @spaces.select(&:target?)
     
     @moves = 0
+  end
+  
+  def box_on_target?(box)
+    coordinates = box.coordinates
+    target = targets.detect {|t| t.coordinates == coordinates}
+    !!target
   end
   
   def solved?

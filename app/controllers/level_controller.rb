@@ -1,11 +1,13 @@
 class LevelController
-  concerned_with :toolbar
+  include Observable
+  
+  concerned_with :component, :board, :toolbar
   
   attr_reader :n, :level, :width, :height, :app
   
   def initialize(template)
     @template = template
-    @n = 20
+    @n = 32
   end
   
   def run!
@@ -20,58 +22,30 @@ class LevelController
   
   def run(app)
     @app = app
-    @elements = {}
     @toolbar = LevelController::Toolbar.new self
+    @board = LevelController::Board.new self
     
-    run_level
+    render
   end
   
   protected
-    def character_for_object(object)
-      character = ' '
-      character = '#' if object.wall?
-      character = '.' if object.target?
-      character = 'o' if object.box?
-      character = '@' if object.pawn?
-      character
+    def image_named(image_name)
+      image image_path(image_name)
     end
     
-    def run_level
-      @toolbar.render
-      
-      render
-      keypress do |direction|
-        result = level.move direction
-        if result.success?
-          result.objects.each do |object|
-            element = @elements[object]
-            element.style top: object.y*n, left: object.x*n
-            @toolbar.update_moves
-          end
-        end
-      end
+    def image_path(image_name)
+      File.expand_path File.dirname(__FILE__) + "/../images/#{image_name}"
     end
     
     def render
-      level.rows.each do |row|
-        flow width: width/level.width.to_f do
-          row.spaces.each do |space|
-            render_object space
-          end
-          
-          row.objects.each do |object|
-            element = render_object object
-            @elements[object] = element
-          end
-        end
-      end
-    end
-    
-    # Render either a space or an object
-    def render_object(object)
-      flow top: object.y*n+1, left: object.x*n, width: n, height: n do
-        para character_for_object(object)
-      end
+      @toolbar.render
+      @board.render
+      
+      background_path = image_path 'background.png'
+      dimensions = imagesize background_path
+      offset = height - dimensions.last
+      background background_path, width: dimensions.first, height: dimensions.last, top: offset
+      on('level_solved') {alert 'Good job!'}
     end
     
     def title
