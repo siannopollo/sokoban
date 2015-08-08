@@ -2,8 +2,6 @@ class LevelController
   class Toolbar < LevelController::Component
     def render
       flow width: width, height: n do
-        background rgb(93,147,253)
-        
         flow width: 0.25, height: 0.5 do
           para 'MARIO', text_options.merge(left: n)
         end

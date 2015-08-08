@@ -39,9 +39,9 @@ class LevelController
     end
     
     def render
+      @background.render
       @toolbar.render
       @board.render
-      @background.render
       
       on('level:solved') {app.alert 'Good job!'}
     end

@@ -25,9 +25,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="22.4"
-     inkscape:cx="2.9733668"
-     inkscape:cy="8.2229769"
+     inkscape:zoom="5.6"
+     inkscape:cx="18.072425"
+     inkscape:cy="3.2314314"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -58,7 +58,7 @@
        id="g3625"
        inkscape:export-xdpi="180"
        inkscape:export-ydpi="180"
-       transform="translate(18.616071,-9.4196429)">
+       transform="translate(32.631938,-14.344137)">
       <rect
          y="1036.3622"
          x="0"
@@ -479,7 +479,7 @@
        id="g3790"
        inkscape:export-xdpi="180"
        inkscape:export-ydpi="180"
-       transform="translate(21.25,8.5714286)">
+       transform="translate(30.467642,11.349348)">
       <rect
          y="1036.3622"
          x="0"
@@ -638,7 +638,8 @@
     <g
        id="g4477"
        inkscape:export-xdpi="180"
-       inkscape:export-ydpi="180">
+       inkscape:export-ydpi="180"
+       transform="translate(-29.294424,-14.647212)">
       <rect
          style="fill:#000000;fill-opacity:1"
          id="rect3438"
@@ -885,7 +886,7 @@
        id="g4433"
        inkscape:export-xdpi="180"
        inkscape:export-ydpi="180"
-       transform="translate(-18.4375,6.9196429)">
+       transform="translate(-31.822021,5.278145)">
       <rect
          y="1051.3622"
          x="1"
