@@ -65,9 +65,17 @@ class LevelController
         render_object object, direction
       end
       
+      def rerender_objects
+        @elements.each do |object, element|
+          rerender_object object, nil if object.box? || object.pawn?
+        end
+      end
+      
       def reset
         @elements = {}
         @pawn = level.pawn
+        
+        on('level:reset') {rerender_objects}
       end
   end
 end

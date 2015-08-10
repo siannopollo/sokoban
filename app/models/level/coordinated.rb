@@ -6,6 +6,7 @@ class Level
         
         def initialize(x, y)
           @x, @y = x, y
+          @original_coordinates = [@x, @y]
         end
         
         def coordinates
@@ -16,6 +17,10 @@ class Level
           additions = additions_for_direction direction
           @x += additions.first
           @y += additions.last
+        end
+        
+        def reset
+          @x, @y = @original_coordinates
         end
         
         def simulate_move(direction)

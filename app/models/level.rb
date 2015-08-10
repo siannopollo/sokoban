@@ -23,6 +23,12 @@ class Level
     !!target
   end
   
+  def reset
+    pawn.reset
+    @boxes.each(&:reset)
+    @moves = 0
+  end
+  
   def solved?
     @boxes.map(&:coordinates).sort == @targets.map(&:coordinates).sort
   end

@@ -201,4 +201,40 @@ describe Level do
       level.should be_solved
     end
   end
+  
+  describe 'reset' do
+    it 'should reset the position of the pawn and boxes' do
+      b1, b2 = level.boxes[2], level.boxes[3]
+      
+      level.pawn.coordinates.should == [4,4]
+      b1.coordinates.should == [3,4]
+      b2.coordinates.should == [4,5]
+      
+      level.move :left
+      level.move :right
+      level.move :down
+      
+      level.pawn.coordinates.should == [4,5]
+      b1.coordinates.should == [2,4]
+      b2.coordinates.should == [4,6]
+      
+      level.reset
+      
+      level.pawn.coordinates.should == [4,4]
+      b1.coordinates.should == [3,4]
+      b2.coordinates.should == [4,5]
+    end
+    
+    it 'should reset the number of moves' do
+      level.moves.should == 0
+      
+      level.move :left
+      level.move :right
+      level.move :down
+      level.moves.should == 3
+      
+      level.reset
+      level.moves.should == 0
+    end
+  end
 end

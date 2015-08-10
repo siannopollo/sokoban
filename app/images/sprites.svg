@@ -25,9 +25,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="5.6"
-     inkscape:cx="18.072425"
-     inkscape:cy="3.2314314"
+     inkscape:zoom="15.839192"
+     inkscape:cx="16.272828"
+     inkscape:cy="0.17958614"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -1035,5 +1035,42 @@
          id="rect3566"
          style="fill:#1784c4;fill-opacity:1" />
     </g>
+    <g
+       id="g4933"
+       inkscape:export-xdpi="253.12"
+       inkscape:export-ydpi="253.12">
+      <rect
+         y="1040.601"
+         x="0.23877813"
+         height="7.5224438"
+         width="15.522444"
+         id="rect3709"
+         style="fill:#b3b3b3;stroke:#919191;stroke-width:0.47755626;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <text
+         transform="scale(0.92787988,1.0777257)"
+         sodipodi:linespacing="124%"
+         id="text4511"
+         y="971.02142"
+         x="1.3552403"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.20510674px;line-height:124.00000095%;font-family:'NES Logo';-inkscape-font-specification:'NES Logo';letter-spacing:0px;word-spacing:0px;fill:#aa0000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         xml:space="preserve"><tspan
+           style="letter-spacing:0.40000618px;word-spacing:0px"
+           dx="0"
+           y="971.02142"
+           x="1.3552403"
+           id="tspan4513"
+           sodipodi:role="line">RESET</tspan></text>
+    </g>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:5px;line-height:125%;font-family:'Bitstream Vera Sans';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="-1.8940361"
+       y="1057.7917"
+       id="text3509"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan3511"
+         x="-1.8940361"
+         y="1057.7917" /></text>
   </g>
 </svg>
