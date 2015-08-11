@@ -2,13 +2,19 @@ class HallOfFame
   class Entry
     concerned_with :collection
     
-    def initialize(data)
+    def initialize(level_number, data)
+      @level_number = level_number
       @data = data
     end
     
-    %w(name time moves).each do |m|
+    %w(name time moves id).each do |m|
       define_method m do
         @data[m.to_sym]
+      end
+      
+      define_method "#{m}=" do |value|
+        @data[m.to_sym] = value
+        HallOfFame.instance.store.synchronize @level_number, @data
       end
     end
     

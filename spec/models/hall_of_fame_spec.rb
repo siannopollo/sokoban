@@ -19,12 +19,12 @@ describe HallOfFame do
   end
   
   it 'should add an entry' do
-    model.entries(1).add_entry name: 'Fred', time: 68, moves: 204
+    entry = model.entries(1).add_entry name: 'Fred', time: 68, moves: 204
     
-    entry = model.entries(1).first
     entry.name.should == 'Fred'
     entry.time.should == 68
     entry.moves.should == 204
+    entry.id.should_not be_nil
   end
   
   it 'should sort entries by best time/moves combo' do
@@ -46,6 +46,12 @@ describe HallOfFame do
   end
   
   it 'should add an entry, then allow it to be edited but still persisted' do
-    pending
+    entry = model.entries(1).add_entry time: 68, moves: 204
+    
+    Marshal.load(File.read(@filename), &:inspect).inspect.should_not match(/Carlos/)
+    
+    entry.name = 'Carlos'
+    entry.name.should == 'Carlos'
+    Marshal.load(File.read(@filename), &:inspect).inspect.should match(/Carlos/)
   end
 end

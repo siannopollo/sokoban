@@ -21,12 +21,20 @@ class HallOfFame
     
     def add(level_number, entry_data)
       @data[level_number] ||= []
+      entry_data[:id] = entry_data.object_id
       @data[level_number] << entry_data
       write_data
     end
     
     def fetch(level_number)
       @data[level_number]
+    end
+    
+    def synchronize(level_number, entry_data)
+      level_data = @data[level_number]
+      existing_data = level_data.detect {|d| d[:id] == entry_data[:id]}
+      existing_data.update entry_data
+      write_data
     end
     
     protected

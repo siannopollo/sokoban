@@ -13,6 +13,7 @@ class HallOfFame
       
       def add_entry(data = {})
         store.add @level_number, data
+        HallOfFame::Entry.new @level_number, data
       end
       
       def each
@@ -26,7 +27,7 @@ class HallOfFame
           @all_entries ||= begin
             data = store.fetch @level_number
             if data
-              data.map {|d| HallOfFame::Entry.new d}.sort
+              data.map {|d| HallOfFame::Entry.new @level_number, d}.sort
             else
               []
             end
