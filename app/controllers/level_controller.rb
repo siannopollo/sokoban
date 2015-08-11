@@ -4,10 +4,15 @@ class LevelController
   concerned_with :component, :board, :toolbar, :background, :hall_of_fame
   
   attr_reader :n, :level, :width, :height, :app
+  attr_writer :level_solved
   
   def initialize(template)
     @template = template
     @n = 32
+  end
+  
+  def level_solved?
+    !!@level_solved
   end
   
   def run!
@@ -43,10 +48,6 @@ class LevelController
       @background.render
       @toolbar.render
       @board.render
-      
-      timer 2 do
-        trigger 'level:solved'
-      end
     end
     
     def title

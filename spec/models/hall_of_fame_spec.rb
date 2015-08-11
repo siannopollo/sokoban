@@ -54,4 +54,26 @@ describe HallOfFame do
     entry.name.should == 'Carlos'
     Marshal.load(File.read(@filename), &:inspect).inspect.should match(/Carlos/)
   end
+  
+  it 'should properly test equality between entries' do
+    entry = model.entries(1).add_entry name: 'Art', time: 67, moves: 203
+    other = model.entries(1).add_entry name: 'Tar', time: 68, moves: 204
+    
+    entry.should == entry
+    other.should == other
+    entry.should_not == other
+    
+    found_entry = model.entries(1).first
+    found_other = model.entries(1).to_a.last
+    
+    found_entry.should == entry
+    found_other.should == other
+    found_entry.should_not == found_other
+  end
+  
+  it 'should not have trouble comparing entries' do
+    model.store_filename = File.expand_path(File.dirname(__FILE__) + '/.error-hall-of-fame')
+    collection = model.entries 1
+    -> {collection.to_a}.should_not raise_error
+  end
 end

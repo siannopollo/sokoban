@@ -19,10 +19,18 @@ class HallOfFame
     end
     
     def <=>(other)
-      comparison_value <=> other.comparison_value
+      comparison_data <=> other.comparison_data
+    end
+    
+    def ==(other)
+      comparison_data == other.comparison_data
     end
     
     protected
+      def comparison_data
+        [@level_number, comparison_value, name.to_s, id]
+      end
+      
       def comparison_value
         time + moves
       end

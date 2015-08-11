@@ -56,6 +56,8 @@ class LevelController
       end
       
       def reset_level
+        return if level_solved?
+        
         level.reset
         trigger 'level:reset'
       end

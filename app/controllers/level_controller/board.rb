@@ -29,7 +29,7 @@ class LevelController
       end
       
       def key_pressed(direction)
-        return if @level_solved
+        return if level_solved?
         
         result = level.move direction
         return unless result.success?
@@ -41,7 +41,10 @@ class LevelController
             rerender_object object, direction
           elsif object.box? && level.box_on_target?(object)
             rerender_object object, direction
-            trigger 'level:solved' if level.solved?
+            if level.solved?
+              controller.level_solved = true
+              trigger 'level:solved'
+            end
           else
             element = @elements[object]
             element.style top: (object.y+1)*n, left: object.x*n
@@ -74,10 +77,8 @@ class LevelController
       def reset
         @elements = {}
         @pawn = level.pawn
-        @level_solved = false
         
         on('level:reset') {rerender_objects}
-        on('level:solved') {@level_solved = true}
       end
   end
 end
