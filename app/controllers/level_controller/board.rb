@@ -7,7 +7,7 @@ class LevelController
       level.boxes.each {|b| render_object b}
       render_object pawn
       
-      observe_keypress
+      keypress {|direction| key_pressed direction}
     end
     
     protected
@@ -28,23 +28,23 @@ class LevelController
         image_named name if name
       end
       
-      def observe_keypress
-        keypress do |direction|
-          result = level.move direction
-          if result.success?
-            trigger 'move:successful'
-            
-            result.objects.each do |object|
-              if object.pawn? && [:left, :right].include?(direction)
-                rerender_object object, direction
-              elsif object.box? && level.box_on_target?(object)
-                rerender_object object, direction
-                trigger 'level:solved' if level.solved?
-              else
-                element = @elements[object]
-                element.style top: (object.y+1)*n, left: object.x*n
-              end
-            end
+      def key_pressed(direction)
+        return if @level_solved
+        
+        result = level.move direction
+        return unless result.success?
+        
+        trigger 'move:successful'
+        
+        result.objects.each do |object|
+          if object.pawn? && [:left, :right].include?(direction)
+            rerender_object object, direction
+          elsif object.box? && level.box_on_target?(object)
+            rerender_object object, direction
+            trigger 'level:solved' if level.solved?
+          else
+            element = @elements[object]
+            element.style top: (object.y+1)*n, left: object.x*n
           end
         end
       end
@@ -74,8 +74,10 @@ class LevelController
       def reset
         @elements = {}
         @pawn = level.pawn
+        @level_solved = false
         
         on('level:reset') {rerender_objects}
+        on('level:solved') {@level_solved = true}
       end
   end
 end

@@ -1,7 +1,7 @@
 class LevelController
   include Observable
   
-  concerned_with :component, :board, :toolbar, :background
+  concerned_with :component, :board, :toolbar, :background, :hall_of_fame
   
   attr_reader :n, :level, :width, :height, :app
   
@@ -25,6 +25,7 @@ class LevelController
     @toolbar = LevelController::Toolbar.new self
     @board = LevelController::Board.new self
     @background = LevelController::Background.new self
+    @hall_of_fame = LevelController::HallOfFame.new self
     
     render
   end
@@ -43,7 +44,9 @@ class LevelController
       @toolbar.render
       @board.render
       
-      on('level:solved') {app.alert 'Good job!'}
+      timer 2 do
+        trigger 'level:solved'
+      end
     end
     
     def title

@@ -44,4 +44,8 @@ describe HallOfFame do
     model.entries(6).size.should == 1
     model.entries(2).size.should == 0
   end
+  
+  it 'should add an entry, then allow it to be edited but still persisted' do
+    pending
+  end
 end

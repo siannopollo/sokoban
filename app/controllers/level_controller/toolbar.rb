@@ -1,4 +1,6 @@
 class LevelController
+  attr_accessor :time
+  
   class Toolbar < LevelController::Component
     def render
       top = n / 2.8
@@ -41,7 +43,7 @@ class LevelController
     protected
       def reset
         on('move:successful') {update_moves}
-        on('level:solved') {update_moves}
+        on('level:solved') {stop_metrics}
         on('level:reset') {reset!}
       end
       
@@ -68,6 +70,11 @@ class LevelController
         end
         
         @timer_started = true
+      end
+      
+      def stop_metrics
+        @time_interval.stop
+        controller.time = @time
       end
       
       def text_options

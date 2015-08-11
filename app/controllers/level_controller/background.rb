@@ -8,8 +8,7 @@ class LevelController
       offset = height - dimensions.last
       background background_path, width: dimensions.first, height: dimensions.last, top: offset
       
-      clouds = 0
-      clouds = rand(level.height) until clouds > level.height/2
+      clouds = rand(6) + 2
       clouds.to_i.times do
         spawn_cloud rand(width)
       end
