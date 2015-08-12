@@ -41,10 +41,7 @@ class LevelController
             rerender_object object, direction
           elsif object.box? && level.box_on_target?(object)
             rerender_object object, direction
-            if level.solved?
-              controller.level_solved = true
-              trigger 'level:solved'
-            end
+            trigger 'level:solved' if level.solved?
           else
             element = @elements[object]
             element.style top: (object.y+1)*n, left: object.x*n

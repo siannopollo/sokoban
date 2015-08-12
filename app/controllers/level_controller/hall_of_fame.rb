@@ -35,8 +35,8 @@ class LevelController
         text_options = {font: 'Andale Mono 14', stroke: white, align: 'center'}
         text_options[:stroke] = green if entry == @entry
         flow with: @dimensions[:width], height: n do
-          flow(width: 0.25) {para "#{i+1}", text_options}
-          flow(width: 0.25) do
+          flow(width: 0.2) {para "#{i+1}", text_options}
+          flow(width: 0.4) do
             if entry == @entry
               @name_field = para '-'*10, text_options.merge(stroke: red, rise: 0)
               keypress() {|k| update_name k}
@@ -45,18 +45,18 @@ class LevelController
               para entry.name, text_options
             end
           end
-          flow(width: 0.25) {para entry.moves, text_options}
-          flow(width: 0.25) {para entry.time, text_options}
+          flow(width: 0.2) {para entry.moves, text_options}
+          flow(width: 0.2) {para entry.time, text_options}
         end
       end
       
       def render_headers
         text_options = {font: 'Stencil 16', stroke: white, align: 'center'}
         flow with: @dimensions[:width] do
-          flow(width: 0.25) {para 'RANK', text_options}
-          flow(width: 0.25) {para 'NAME', text_options}
-          flow(width: 0.25) {para 'MOVES', text_options}
-          flow(width: 0.25) {para 'TIME', text_options}
+          flow(width: 0.2) {para 'RANK', text_options}
+          flow(width: 0.4) {para 'NAME', text_options}
+          flow(width: 0.2) {para 'MOVES', text_options}
+          flow(width: 0.2) {para 'TIME', text_options}
         end
       end
       

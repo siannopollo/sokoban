@@ -26,6 +26,8 @@ class LevelController
   end
   
   def run(app)
+    on('level:solved') {self.level_solved = true}
+    
     @app = app
     @toolbar = LevelController::Toolbar.new self
     @board = LevelController::Board.new self
