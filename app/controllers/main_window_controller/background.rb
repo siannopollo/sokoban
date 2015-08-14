@@ -1,5 +1,5 @@
 class MainWindowController
-  concerned_with :goomba
+  concerned_with :enemy, :goomba, :koopa_troopa, :buzzy_beetle, :spiny
   
   class Background < BaseController::Component
     def render
@@ -14,8 +14,12 @@ class MainWindowController
     end
     
     protected
+      def reset
+        on('enemy:removed') {spawn_enemy}
+      end
+      
       def spawn_enemy
-        type = %w(Goomba).sample
+        type = %w(Goomba KoopaTroopa BuzzyBeetle Spiny).sample
         klass = MainWindowController.const_get type
         enemy = klass.new controller
         enemy.render
