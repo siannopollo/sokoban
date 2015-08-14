@@ -1,5 +1,5 @@
 class LevelController
-  class Board < LevelController::Component
+  class Board < BaseController::Component
     attr_reader :pawn
     
     def render

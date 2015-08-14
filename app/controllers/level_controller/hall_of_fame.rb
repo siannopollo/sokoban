@@ -1,5 +1,5 @@
 class LevelController
-  class HallOfFame < LevelController::Component
+  class HallOfFame < BaseController::Component
     protected
       def blink_cursor
         @blink_timer = animate(3) do |n|

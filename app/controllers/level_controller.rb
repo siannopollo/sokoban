@@ -1,14 +1,13 @@
 class LevelController
-  include Observable
+  include BaseController
   
-  concerned_with :component, :board, :toolbar, :background, :hall_of_fame
+  concerned_with :board, :toolbar, :background, :hall_of_fame
   
-  attr_reader :n, :level, :width, :height, :app
+  attr_reader :level, :width, :height
   attr_writer :level_solved
   
   def initialize(template)
     @template = template
-    @n = 32
   end
   
   def level_solved?
@@ -20,7 +19,7 @@ class LevelController
     @level = Level.new @template
     @width, @height = level.width*n, level.height*n + n
     
-    Shoes.app title: title, width: width, height: height do |app|
+    Shoes.app title: title, width: width, height: height, resizable: false do |app|
       controller.run app
     end
   end
@@ -38,14 +37,6 @@ class LevelController
   end
   
   protected
-    def image_named(image_name)
-      image image_path(image_name)
-    end
-    
-    def image_path(image_name)
-      File.expand_path File.dirname(__FILE__) + "/../images/#{image_name}"
-    end
-    
     def render
       @background.render
       @toolbar.render
@@ -54,9 +45,5 @@ class LevelController
     
     def title
       "Sokoban - Level #{level.number}"
-    end
-    
-    def method_missing(method, *args, &block)
-      app.send method, *args, &block
     end
 end

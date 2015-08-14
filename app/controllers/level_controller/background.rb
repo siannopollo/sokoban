@@ -1,5 +1,5 @@
 class LevelController
-  class Background < LevelController::Component
+  class Background < BaseController::Component
     def render
       background rgb(93,147,253)
       
@@ -8,19 +8,20 @@ class LevelController
       offset = height - dimensions.last
       background background_path, width: dimensions.first, height: dimensions.last, top: offset
       
-      clouds = rand(6) + 2
+      clouds = rand(3) + 2
       clouds.to_i.times do
         spawn_cloud rand(width)
       end
     end
     
     def spawn_cloud(left = width)
-      image_name = "cloud-#{[1,2,3].sample}.png"
-      background_path = image_path image_name
-      dimensions = imagesize background_path
+      number = [1,2,3].sample
+      image_name = "cloud-#{number}.png"
+      path = image_path image_name
+      width = {1 => 32, 2 => 48, 3 => 64}[number]
       
-      element = flow(top: cloud_top, left: left, width: dimensions.first, height: dimensions.last) do
-        style background: image_named(image_name)
+      element = flow(top: cloud_top, left: left, width: width, height: 32) do
+        background path
       end
       
       animate(rand(24).to_i) {

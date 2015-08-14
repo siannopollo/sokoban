@@ -1,7 +1,7 @@
 class LevelController
   attr_accessor :time
   
-  class Toolbar < LevelController::Component
+  class Toolbar < BaseController::Component
     def render
       top = n / 2.8
       flow width: width, height: n do
@@ -22,8 +22,7 @@ class LevelController
         flow width: 0.25 do
           stack do
             para 'WORLD', text_options.merge(align: 'center')
-            world, number = level.number.divmod 10
-            para [world+1, number].join('-'), text_options.merge(align: 'center', top: top)
+            para level.world, text_options.merge(align: 'center', top: top)
           end
         end
         flow width: 0.20 do

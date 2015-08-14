@@ -1,3 +1,3 @@
 require 'requirements'
 
-MainWindowController.instance.run
+MainWindowController.instance.run!

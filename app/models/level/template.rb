@@ -1,4 +1,6 @@
 class Level
+  delegate :world, to: :template
+  
   class Template
     concerned_with :parse, :cache
     
@@ -26,6 +28,15 @@ class Level
     
     def inspect
       %{#<Level::Template number="#{@number}" \n#{to_s}\n>}
+    end
+    
+    def world
+      world, n = @number.divmod 8
+      if n == 0
+        n = 8
+        world -= 1
+      end
+      "#{world+1}-#{n}"
     end
   end
 end

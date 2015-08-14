@@ -1,4 +1,4 @@
-class LevelController
+module BaseController
   class Component < Struct.new(:controller)
     attr_reader :controller
     
