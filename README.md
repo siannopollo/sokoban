@@ -4,4 +4,4 @@
 * **Running the game** Run `./sokoban` from the project directory.
 
 ### What it looks like:
-<center>![Gameplay](https://raw.githubusercontent.com/siannopollo/sokoban/master/sokoban.gif)</center>
+![Gameplay](https://raw.githubusercontent.com/siannopollo/sokoban/master/sokoban.gif)
