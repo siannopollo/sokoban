@@ -12,6 +12,10 @@ class MainWindowController
       animate!
     end
     
+    def visible?
+      @visible
+    end
+    
     protected
       def advance(frame, offset = 1, sprites = @sprites)
         @element.left = @element.left - offset
@@ -49,10 +53,12 @@ class MainWindowController
       def remove!
         @animation.stop
         @element.remove
+        @visible = false
         trigger 'enemy:removed'
       end
       
       def reset
+        @visible = true
         @counter, @old_counter = nil
         @hidden, @emerging, @sliding = false, false, false
         

@@ -18,9 +18,9 @@ class LevelController
       number = [1,2,3].sample
       image_name = "cloud-#{number}.png"
       path = image_path image_name
-      width = {1 => 32, 2 => 48, 3 => 64}[number]
+      cloud_width = {1 => 32, 2 => 48, 3 => 64}[number]
       
-      element = flow(top: cloud_top, left: left, width: width, height: 32) do
+      element = flow(top: cloud_top, left: left, width: cloud_width, height: 32) do
         background path
       end
       
