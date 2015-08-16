@@ -15,6 +15,11 @@ class Level
       def counter
         @counter ||= 1
       end
+      
+      def reset_cache
+        @all_templates.clear
+        @counter = 1
+      end
     end
   end
 end

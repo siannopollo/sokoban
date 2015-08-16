@@ -1,18 +1,7 @@
-require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
-require 'fileutils'
+require_relative '../spec_helper'
 
 describe HallOfFame do
   let(:model) {HallOfFame.instance}
-  
-  before do
-    @filename = File.expand_path(File.dirname(__FILE__) + '/.test-hall-of-fame')
-    model.store_filename = @filename
-  end
-  
-  after do
-    FileUtils.rm_f @filename
-    model.instance_variable_set '@store', nil
-  end
   
   it 'should not have any entries' do
     model.entries(1).size.should == 0
@@ -47,12 +36,13 @@ describe HallOfFame do
   
   it 'should add an entry, then allow it to be edited but still persisted' do
     entry = model.entries(1).add_entry time: 68, moves: 204
+    filename = HallOfFame.instance.store_filename
     
-    Marshal.load(File.read(@filename), &:inspect).inspect.should_not match(/Carlos/)
+    Marshal.load(File.read(filename), &:inspect).inspect.should_not match(/Carlos/)
     
     entry.name = 'Carlos'
     entry.name.should == 'Carlos'
-    Marshal.load(File.read(@filename), &:inspect).inspect.should match(/Carlos/)
+    Marshal.load(File.read(filename), &:inspect).inspect.should match(/Carlos/)
   end
   
   it 'should properly test equality between entries' do

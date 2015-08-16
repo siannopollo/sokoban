@@ -1,19 +1,7 @@
-require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
+require_relative '../spec_helper'
 
 describe Level do
-  let(:basic_template) {
-    %{
-      ###
-      #.#
-      # ####
-    ###o o.#
-    #. o@###
-    ####o#
-       #.#
-       ###
-    }
-  }
-  let(:template) {Level::Template.parse basic_template}
+  let(:template) {basic_template}
   let(:level) {Level.new template}
   
   describe 'template cache' do
