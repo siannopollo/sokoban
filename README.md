@@ -7,4 +7,4 @@
 ![Gameplay](https://raw.githubusercontent.com/siannopollo/sokoban/master/sokoban.gif)
 
 ### Images
-Most images were ripped from a sprite-sheet compiled by [this guy](stupidsonic@yahoo.com), [found here](http://wordofgame.com/wp-content/uploads/2014/06/8-bit-mario-enemiessprites-kajekvvd.gif).
+Most images were ripped from a sprite-sheet compiled by <stupidsonic@yahoo.com>, [found here](http://wordofgame.com/wp-content/uploads/2014/06/8-bit-mario-enemiessprites-kajekvvd.gif).
