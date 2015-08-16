@@ -28,7 +28,6 @@ class MainWindowController
   end
   
   protected
-    
     def render
       @background.render
       @templates.render

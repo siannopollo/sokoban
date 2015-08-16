@@ -25,7 +25,7 @@ class Level
     end
     
     def pawn
-      return nil unless @string_representation.include?('@')
+      return nil unless @string_representation =~ /@|\+/
       @pawn ||= @objects.detect(&:pawn?)
     end
     
