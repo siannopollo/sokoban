@@ -16,13 +16,15 @@ class MainWindowController
     protected
       def reset
         @enemy = nil
+        @class_names = %w(Goomba KoopaTroopa BuzzyBeetle Spiny)
         on('enemy:removed') {spawn_enemy}
       end
       
       def spawn_enemy
         return if @enemy && @enemy.visible?
-        type = %w(Goomba KoopaTroopa BuzzyBeetle Spiny).sample
-        klass = MainWindowController.const_get type
+        name = @class_names.shift
+        @class_names << name
+        klass = MainWindowController.const_get name
         @enemy = klass.new controller
         @enemy.render
       end

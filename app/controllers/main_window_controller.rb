@@ -14,7 +14,7 @@ class MainWindowController
     controller = self
     Level::Template.load_all
     
-    Shoes.app title: 'Sokoban', width: @width, height: @height do |app|
+    Shoes.app title: 'Sokoban', width: @width, height: @height, resizable: false do |app|
       controller.run app
     end
   end
