@@ -17,7 +17,7 @@ class Level
       end
       
       def reset_cache
-        @all_templates.clear
+        @all_templates = {}
         @counter = 1
       end
     end

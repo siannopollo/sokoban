@@ -12,8 +12,8 @@ class Shoes
   end
   
   %w(
-    rgb background flow stack para image style replace
-    every remove stop stroke line white green red
+    rgb background flow stack para image style replace clear
+    timer every remove start stop stroke line white green red
   ).each do |m|
     define_method m do |*args, &block|
       block.call if block
@@ -23,6 +23,7 @@ class Shoes
   
   def animate(fps, &block)
     # don't do anything for animations
+    self
   end
   
   def button(button_name, options = {}, &block)
